@@ -5,43 +5,23 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
-const projects = [
-  {
-    image: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    title: "Library",
-    location: "Diamond Valley, Victoria",
-    description: "Commercial renovation with custom-built stage, community spaces, and outdoor deck."
-  },
-  {
-    image: "https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    title: "University",
-    location: "Melbourne, Victoria",
-    description: "Health sciences facility for cutting-edge research programs."
-  },
-  {
-    image: "https://images.unsplash.com/photo-1496307653780-42ee777d4833?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    title: "Corporate Office",
-    location: "Sydney, New South Wales",
-    description: "Modern headquarters with open collaboration spaces and sustainable design."
-  },
-  {
-    image: "/completed/aparna.webp",
-    title: "Aparna",
-    location: "Hyderabad, Telangana",
-    description: "Premium residential towers with world-class amenities."
-  },
-  {
-    image: "/completed/ramada.jpeg",
-    title: "Ramada Hotel",
-    location: "Mumbai, Maharashtra",
-    description: "Luxury hotel project with modern architecture."
-  },
-  {
-    image: "/completed/stadium.jpg",
-    title: "Stadium",
-    location: "Pune, Maharashtra",
-    description: "State-of-the-art sports stadium with advanced facilities."
+// CSV parsing helper
+function parseCSV(csv: string) {
+  const lines = csv.trim().split('\n');
+  const result = [];
+  for (let i = 1; i < lines.length; i++) {
+    const [id, description] = lines[i].split(/,(.+)/); // split only on first comma
+    result.push({ id: Number(id), description });
   }
+  return result;
+}
+
+// We'll use 3 featured projects for now
+const NUM_FEATURED = 3;
+const defaultProjects = [
+  { image: "/home_featured/1.jpg", description: "" },
+  { image: "/home_featured/2.jpg", description: "" },
+  { image: "/home_featured/3.jpg", description: "" },
 ];
 
 const getVisibleIndices = (center: number, total: number) => {
@@ -53,23 +33,22 @@ const getVisibleIndices = (center: number, total: number) => {
 
 export default function FeaturedProjects() {
   const [center, setCenter] = useState(0);
-  const [windowWidth, setWindowWidth] = useState(0);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const [projects, setProjects] = useState(defaultProjects);
 
-  // Handle window resize and initial width
+  // Fetch descriptions from CSV
   useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-    
-    // Set initial width
-    handleResize();
-    
-    // Add event listener
-    window.addEventListener('resize', handleResize);
-    
-    // Cleanup
-    return () => window.removeEventListener('resize', handleResize);
+    fetch("/home_featured/descriptions.csv")
+      .then(res => res.text())
+      .then(csv => {
+        const descs = parseCSV(csv);
+        setProjects(
+          descs.map((desc, i) => ({
+            image: `/home_featured/${desc.id}.jpg`,
+            description: desc.description
+          }))
+        );
+      });
   }, []);
 
   // Auto-rotate
@@ -78,7 +57,7 @@ export default function FeaturedProjects() {
       setCenter((prev) => (prev + 1) % projects.length);
     }, 4000);
     return () => intervalRef.current && clearInterval(intervalRef.current);
-  }, []);
+  }, [projects.length]);
 
   // Pause auto-rotate on hover
   const pauseRotation = () => intervalRef.current && clearInterval(intervalRef.current);
@@ -92,27 +71,34 @@ export default function FeaturedProjects() {
   const goLeft = () => setCenter((prev) => (prev - 1 + projects.length) % projects.length);
   const goRight = () => setCenter((prev) => (prev + 1) % projects.length);
 
-  const visible = getVisibleIndices(center, projects.length);
+  // Only show visible cards (1 on mobile, 3 on desktop)
+  const getResponsiveVisible = () => {
+    if (typeof window !== 'undefined' && window.innerWidth < 768) {
+      return [center];
+    }
+    return getVisibleIndices(center, projects.length);
+  };
+  const visibleIndices = getResponsiveVisible();
 
   return (
     <section className="w-full bg-white pt-8 md:pt-12 pb-20 md:pb-28 flex flex-col items-center">
       {/* Section Title Row */}
-      <div className="mb-8 w-full max-w-7xl relative px-4">
+      <div className="mb-4 w-full max-w-none relative">
         <div className="flex flex-col items-center justify-center w-full">
-          <h2 className="text-4xl md:text-5xl font-bold font-playfair text-gray-900 leading-tight mb-0 text-center">
+          <h2 className="text-4xl md:text-5xl font-bold font-cormorant text-gray-900 leading-tight mb-0 text-center heading-spacing">
             Featured Projects
           </h2>
-          <div className="w-24 h-1 rounded-full bg-[#b45f1d] mt-2 mb-2"></div>
+          <div className="w-24 h-1 rounded-full bg-[#b45f1d] mt-1 mb-1"></div>
           <p className="text-lg text-gray-700 font-light max-w-xl text-center">
             Showcasing our most prestigious constructions across India
           </p>
         </div>
       </div>
       {/* Explore Projects button above carousel */}
-      <div className="w-full max-w-7xl flex justify-end px-4 mb-6">
+      <div className="w-full max-w-none flex justify-end mb-0">
         <Link href="/projects" passHref legacyBehavior>
           <button
-            className="explore-btn font-playfair text-[#b45f1d] text-lg md:text-xl font-bold relative px-2 py-1 transition-transform duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#b45f1d] cursor-pointer group"
+            className="explore-btn font-cormorant text-[#b45f1d] text-lg md:text-xl font-bold relative px-2 py-1 transition-transform duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#b45f1d] cursor-pointer group"
             style={{ background: 'none', border: 'none', boxShadow: 'none' }}
           >
             <span className="relative z-10 flex items-center gap-2">
@@ -140,7 +126,7 @@ export default function FeaturedProjects() {
       </div>
       {/* Carousel */}
       <div
-        className="relative flex items-center justify-center w-full max-w-7xl h-[420px] md:h-[520px] lg:h-[600px]"
+        className="relative flex items-center justify-center w-full max-w-none h-[420px] md:h-[520px] lg:h-[600px] overflow-x-hidden"
         onMouseEnter={pauseRotation}
         onMouseLeave={resumeRotation}
       >
@@ -152,28 +138,26 @@ export default function FeaturedProjects() {
           style={{width: 56, height: 56, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
           <ChevronLeft className="w-7 h-7" />
         </button>
-        {/* Cards - flex row, always 3 visible, center overlaps sides */}
         <div className="flex w-full h-full items-center justify-center relative overflow-x-visible">
           {projects.map((project, idx) => {
-            // Determine position: -1 (left), 0 (center), 1 (right), or offscreen
             let pos = (idx - center + projects.length) % projects.length;
-            if (pos > 2) pos -= projects.length; // wrap for circular
+            if (pos > 2) pos -= projects.length;
             if (pos < -1) pos += projects.length;
-            if (pos < -1 || pos > 1) return null; // Only render left, center, right
+            if (pos < -1 || pos > 1) return null;
             const isCenter = pos === 0;
-            const width = '70%';
+            const width = '45%';
             const minWidth = '320px';
-            const margin = '-21%';
+            const margin = '-12%';
             // Animation states
-            const x = pos * 0.38 * windowWidth; // Use windowWidth state instead of window.innerWidth
+            let x = pos * 0.38 * (typeof window !== 'undefined' ? Math.min(window.innerWidth, 1280) : 1280); // Clamp to 1280px
             const scale = 1;
             const opacity = isCenter ? 1 : 0.85;
             const blur = isCenter ? 'none' : 'blur(1.5px)';
             const z = isCenter ? 20 : 10;
             return (
-              <AnimatePresence key={project.title}>
+              <AnimatePresence key={idx}>
                 <motion.div
-                  key={project.title}
+                  key={idx}
                   initial={{ x: pos * 800, opacity: 0, scale: 0.95 }}
                   animate={{ x, opacity, scale, filter: blur, zIndex: z, boxShadow: isCenter ? '0 8px 40px 0 rgba(0,0,0,0.12)' : '0 2px 12px 0 rgba(0,0,0,0.08)' }}
                   exit={{ x: pos < 0 ? -1200 : 1200, opacity: 0, scale: 0.95 }}
@@ -193,7 +177,7 @@ export default function FeaturedProjects() {
                   <div className="w-full h-3/4 rounded-t-3xl overflow-hidden flex items-center justify-center relative">
                     <img
                       src={project.image}
-                      alt={project.title}
+                      alt={`Featured Project ${idx + 1}`}
                       className="object-cover w-full h-full"
                       draggable={false}
                       onError={e => { e.currentTarget.src = 'https://via.placeholder.com/400x225?text=No+Image'; }}
@@ -207,8 +191,7 @@ export default function FeaturedProjects() {
                         className="absolute inset-0 flex flex-col justify-end items-center bg-white/30 backdrop-blur-md rounded-t-3xl opacity-0 hover:opacity-100 transition-opacity duration-300"
                       >
                         <div className="w-full p-8 pb-4 flex flex-col items-center">
-                          <h3 className="text-3xl font-bold text-gray-900 mb-2 text-center drop-shadow-lg">{project.title}</h3>
-                          <div className="text-lg text-gray-700 mb-2 text-center">{project.location}</div>
+                          {/* No title/location, just description */}
                           <button className="mt-2 px-6 py-2 rounded-full bg-[#b45f1d] text-white font-semibold shadow-lg hover:bg-[#934616] transition-colors">View Project</button>
                         </div>
                       </motion.div>

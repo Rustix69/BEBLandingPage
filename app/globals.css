@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -102,6 +103,8 @@
 
   body {
     @apply bg-background text-foreground font-grotesk;
+    font-family: 'Space Grotesk', sans-serif;
+    background: linear-gradient(120deg, #f8f6f3 0%, #f3f5fa 100%);
   }
 }
 
@@ -134,4 +137,20 @@
 .grow-divider {
   animation: growDivider 1s 0.7s cubic-bezier(0.23, 1, 0.32, 1) both;
   transform-origin: center;
+}
+
+h1, h2, h3, h4, h5, h6, .font-cormorant {
+  font-family: 'Cormorant Garamond', serif !important;
+}
+
+.accent {
+  color: #b45f1d;
+}
+
+.heading-spacing {
+  letter-spacing: 0.04em;
+}
+
+html {
+  scroll-behavior: smooth;
 } 

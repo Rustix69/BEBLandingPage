@@ -5,6 +5,7 @@ import { Card } from "@/components/ui/card";
 import ProfileSection from "@/components/ProfileSection";
 import ManagementTeam from "@/components/ManagementTeam";
 import RegistrationsTable from "@/components/RegistrationsTable";
+import AccreditationsSection from "@/components/AccreditationsSection";
 import Header from "@/components/Header";
 
 const tabItems = [

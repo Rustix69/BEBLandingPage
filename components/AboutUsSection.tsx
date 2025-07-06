@@ -76,11 +76,11 @@ export default function AboutUsSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="w-screen py-12 md:py-20 flex flex-col md:flex-row items-center justify-center bg-white overflow-x-hidden p-0">
+    <section ref={sectionRef} className="w-full py-6 md:py-8 flex flex-col md:flex-row items-center justify-center bg-white overflow-x-hidden p-0">
       {/* Left: Text */}
-      <div className="flex-[1.7] flex flex-col justify-center items-start h-full px-2 md:px-6 z-10">
+      <div className="flex-1 flex flex-col justify-center items-start h-full pl-6 md:pl-12 z-10">
         <span className="text-base font-bold uppercase tracking-widest text-[#b45f1d] mb-2">About Us</span>
-        <h2 className="text-4xl md:text-5xl font-bold font-playfair text-gray-900 leading-tight mb-3">B.E. Billimoria & Company Ltd.</h2>
+        <h2 className="text-4xl md:text-5xl font-bold font-cormorant text-gray-900 leading-tight mb-3 heading-spacing">B.E. Billimoria & Co.</h2>
         <div className="flex flex-wrap gap-3 mb-4">
           <span className="text-[#b45f1d] font-semibold text-base">#EngineeringExcellence</span>
           <span className="text-[#b45f1d] font-semibold text-base">#BuildingIndia</span>
@@ -119,11 +119,11 @@ export default function AboutUsSection() {
           </Link>
         </div>
       </div>
-      {/* Right: Flowing Images */}
-      <div className="flex-[1.3] flex items-center justify-center h-full relative z-10">
-        <div className="relative w-[80vw] max-w-[1200px] h-[75vh] max-h-[800px] flex items-center justify-center">
+      {/* Right: Image */}
+      <div className="flex-1 flex items-center justify-center h-full relative z-10">
+        <div className="relative w-full max-w-[600px] h-[60vh] max-h-[600px] flex items-center justify-center">
           {/* Main image */}
-          <img src="/completed/aparna.webp" alt="BEBL Project 1" className="rounded-3xl object-cover w-[70vw] max-w-[1100px] h-[70vh] max-h-[700px] shadow-2xl border-4 border-white" style={{zIndex:2}} />
+          <img src="/home_about/1.jpg" alt="BEBL Project 1" className="rounded-3xl object-cover w-full max-w-[600px] h-[55vh] max-h-[500px] shadow-2xl border-4 border-white" style={{zIndex:2, boxShadow: '0 8px 32px 0 rgba(60,60,60,0.18), 0 1.5px 8px 0 rgba(60,60,60,0.10)'}} />
         </div>
       </div>
       <style jsx>{`

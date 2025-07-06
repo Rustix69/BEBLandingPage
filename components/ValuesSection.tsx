@@ -6,17 +6,17 @@ const ValuesSection = () => {
     {
       icon: Handshake,
       title: "Partnerships",
-      description: "Bestbuild have created foundations built on mutual trust, respect and collaboration. And on always working towards a shared goal, and vision."
+      description: "BEBL have created foundations built on mutual trust, respect and collaboration. And on always working towards a shared goal, and vision."
     },
     {
       icon: Award,
       title: "Excellence",
-      description: "Bestbuild is involved in consistently exceeding expectations and delivering superior results, through our high standards and continuous improvement."
+      description: "BEBL is involved in consistently exceeding expectations and delivering superior results, through our high standards and continuous improvement."
     },
     {
       icon: Leaf,
       title: "Sustainability",
-      description: "Bestbuild's sustainability involves creating a strong and resilient business that can thrive over the long term, by promoting efficiency, innovation, and responsible business practices."
+      description: "BEBL's sustainability involves creating a strong and resilient business that can thrive over the long term, by promoting efficiency, innovation, and responsible business practices."
     }
   ];
 

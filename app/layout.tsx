@@ -27,6 +27,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${playfair.variable} ...other classes`}>
+        <style>{`
+          h1, h2, h3, h4, h5, h6, .font-playfair {
+            font-family: var(--font-playfair), serif !important;
+          }
+        `}</style>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

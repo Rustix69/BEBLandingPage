@@ -86,7 +86,6 @@ const registrations: Registration[] = [
 export default function RegistrationsTable() {
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-semibold text-center">Company Registrations</h2>
       <div className="rounded-lg border bg-white">
         <Table>
           <TableHeader>

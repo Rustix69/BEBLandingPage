@@ -2,17 +2,18 @@
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 
-const heroImage = {
-  viceroyPark: "/completed/viceroy-park.jpg",
-  rubixMall: "/completed/rubix-mall.avif",
-  manjeeraMajestic: "/completed/manjeera-majestic.avif",
-  sriSatya : "/completed/sri-satya.webp",
-  aparna : "/completed/aparna.webp",
-  stadium : "/completed/stadium.jpg",
-}
+// Add new array for home_hero images
+const heroImages = [
+  "/home_hero/1.jpg",
+  "/home_hero/2.jpg",
+  "/home_hero/3.jpg",
+  "/home_hero/4.jpg",
+  "/home_hero/5.jpg",
+];
 
 const HeroSection = () => {
-  const imageArray = Object.values(heroImage);
+  // Use new heroImages array
+  const imageArray = heroImages;
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
@@ -59,11 +60,11 @@ const HeroSection = () => {
       
       <div className="relative z-10 flex flex-col items-center justify-center w-full px-2 max-w-6xl mx-auto">
         {/* Main Heading */}
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold text-white drop-shadow-xl tracking-wider mb-4 text-center whitespace-nowrap" style={{fontFamily: 'Playfair Display, serif', letterSpacing: '0.08em', textShadow: '0 4px 24px rgba(0,0,0,0.4)'}}>B.E.Billimoria & Co.</h1>
+        <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold text-white drop-shadow-xl tracking-wider mb-4 text-center whitespace-nowrap font-cormorant heading-spacing">B.E.Billimoria & Co.</h1>
         {/* Solid White Divider Line with Animation */}
         <div className="w-32 h-1 rounded-full bg-white opacity-90 mb-3 grow-divider"></div>
         {/* Subtext */}
-        <span className="block text-lg md:text-2xl font-semibold text-white mb-3 text-center tracking-wide" style={{fontFamily: 'Playfair Display, serif'}}>Civil Engineering Construction Contractors</span>
+        <span className="block text-lg md:text-2xl font-semibold text-white mb-3 text-center tracking-wide font-cormorant">Civil Engineering Construction Contractors</span>
         {/* Footer Row */}
         <span className="block text-base md:text-lg text-white text-center tracking-wide italic">BUILDING Relationships <span className="not-italic mx-2">•</span> Since 1958</span>
       </div>
