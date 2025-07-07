@@ -14,7 +14,7 @@ const Header = () => {
       <div className="bg-white/95 backdrop-blur-md border border-gray-200/50 rounded-2xl shadow-lg shadow-black/5 px-6 py-3 mx-auto max-w-7xl">
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-2">
-            <Image src="/logo.png" alt="logo" width={160} height={96} />
+            <Image src="/footer/logo.png" alt="logo" width={160} height={96} />
           </Link>
           
           <nav className="hidden md:flex items-center space-x-8">
