@@ -48,6 +48,9 @@ const Header = () => {
             <Link href="/projects" className="font-space-grotesk text-sm hover:text-primary transition-colors">
               Projects
             </Link>
+            <Link href="/careers" className="font-space-grotesk text-sm hover:text-primary transition-colors">
+              Careers
+            </Link>
             <Link href="/contact" className="font-space-grotesk text-sm hover:text-primary transition-colors">
               Contact Us
             </Link>

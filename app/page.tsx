@@ -3,7 +3,7 @@ import HeroSection from "@/components/HeroSection";
 // import AboutSection from "@/components/AboutSection";
 import ValuesSection from "@/components/ValuesSection";
 import FeaturedProjects from "@/components/FeaturedProjects";
-// import TestimonialsSection from "@/components/TestimonialsSection";
+import TestimonialsSection from "@/components/TestimonialsSection";
 // import Footer from "@/components/Footer";
 import AboutUsSection from "@/components/AboutUsSection";
 
@@ -16,7 +16,7 @@ export default function Home() {
       <FeaturedProjects />
       {/* <AboutSection /> */}
       <ValuesSection />
-      {/* <TestimonialsSection /> */}
+      <TestimonialsSection />
       {/* <Footer /> */}
     </div>
   );
