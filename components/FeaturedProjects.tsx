@@ -79,20 +79,16 @@ const featuredProjects = [
   },
 ];
 
-export default function FeaturedProjects() {
+const FeaturedProjects = () => {
   return (
     <section className="w-full bg-white pt-8 md:pt-12 pb-20 md:pb-28">
       {/* Section Title Row */}
-      <div className="mb-4 w-full max-w-none relative">
-        <div className="flex flex-col items-center justify-center w-full">
-          <h2 className="text-4xl md:text-5xl font-bold font-cormorant text-gray-900 leading-tight mb-0 text-center heading-spacing">
-            Featured Projects
-          </h2>
-          <div className="w-24 h-1 rounded-full bg-[#b45f1d] mt-1 mb-1"></div>
-          <p className="text-lg text-gray-700 font-light max-w-xl text-center mb-8">
-            Showcasing our most prestigious constructions across India
-          </p>
-        </div>
+      <div className="text-center mb-16">
+        <h4 className="text-sm uppercase tracking-wider text-primary mb-3">Our Signature Works</h4>
+        <h2 className="text-4xl font-bold text-heading mb-4">Featured Projects</h2>
+        <p className="text-muted-foreground max-w-2xl mx-auto">
+          Showcasing our most prestigious constructions across India, highlighting our commitment to excellence, innovation, and transformative design.
+        </p>
       </div>
 
       {/* Apple Cards Carousel */}
@@ -103,4 +99,6 @@ export default function FeaturedProjects() {
       />
     </section>
   );
-} 
+};
+
+export default FeaturedProjects; 
