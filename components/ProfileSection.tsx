@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useState, useRef } from "react";
 import { useInView } from "framer-motion";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 const businessSegments = [
   { icon: Building, title: "Engineering & Construction", desc: "Landmark civil and structural projects across India." },
@@ -132,26 +133,72 @@ export default function ProfileSection() {
         </motion.div>
       </div>
 
-      {/* MILESTONES / TIMELINE SECTION */}
+            {/* MILESTONES / TIMELINE SECTION */}
       <div className="px-6 md:px-16 py-12 bg-white border-t border-gray-100">
         <h2 className="text-3xl md:text-4xl font-bold font-cormorant text-heading mb-8 text-center heading-spacing">Our Milestones</h2>
-        <div className="flex flex-col md:flex-row md:items-center justify-center gap-8 md:gap-12 max-w-5xl mx-auto">
-          {milestones.map((m, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: i * 0.1 }}
-              className="flex flex-col items-center"
+        <div className="max-w-5xl mx-auto h-[400px]">
+          <ResponsiveContainer width="100%" height="100%">
+            <LineChart
+              data={milestones.map(m => ({
+                year: m.year,
+                value: m.year - 1958, // Calculate progress value based on year
+                label: m.label
+              }))}
+              margin={{ top: 30, right: 30, left: 60, bottom: 40 }}
             >
-              <div className="text-3xl font-bold text-[#b45f1d] font-cormorant accent">{m.year}</div>
-              <div className="text-gray-700 text-base font-semibold mb-2">{m.label}</div>
-              {i < milestones.length - 1 && (
-                <div className="hidden md:block w-24 h-1 bg-[#b45f1d] my-2 rounded-full" />
-              )}
-            </motion.div>
-          ))}
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis
+                dataKey="year"
+                tick={{ fill: 'black', fontSize: 14 }}
+                tickLine={{ stroke: 'black' }}
+                label={{ value: 'Timeline (Years)', position: 'bottom', offset: 20, fill: 'black', fontSize: 14 }}
+              />
+              <YAxis
+                label={{ 
+                  value: 'Growth & Achievements', 
+                  angle: -90, 
+                  position: 'insideLeft',
+                  offset: -40,
+                  fill: 'black',
+                  fontSize: 14
+                }}
+                tick={{ fill: 'black', fontSize: 12 }}
+                tickLine={{ stroke: 'black' }}
+                domain={[0, 'dataMax + 10']}
+              />
+              <Tooltip
+                content={({ active, payload }) => {
+                  if (active && payload && payload.length) {
+                    return (
+                      <div className="bg-white p-4 shadow-lg rounded-lg border">
+                        <p className="font-bold text-lg">{payload[0].payload.year}</p>
+                        <p className="text-gray-600">{payload[0].payload.label}</p>
+                      </div>
+                    );
+                  }
+                  return null;
+                }}
+              />
+              <Line
+                type="monotone"
+                dataKey="value"
+                stroke="black"
+                strokeWidth={2}
+                dot={{
+                  stroke: 'black',
+                  strokeWidth: 2,
+                  fill: 'white',
+                  r: 6
+                }}
+                activeDot={{
+                  stroke: 'black',
+                  strokeWidth: 2,
+                  fill: 'white',
+                  r: 8
+                }}
+              />
+            </LineChart>
+          </ResponsiveContainer>
         </div>
       </div>
 
