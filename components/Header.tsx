@@ -35,12 +35,6 @@ const Header = () => {
                   <Link href="/about/management">Management Team</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link href="/about/registrations">Registrations</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/about/policy">Policy</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
                   <Link href="/about/media">Media</Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>

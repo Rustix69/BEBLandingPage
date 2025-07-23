@@ -4,15 +4,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
 import ProfileSection from "@/components/ProfileSection";
 import ManagementTeam from "@/components/ManagementTeam";
-import RegistrationsTable from "@/components/RegistrationsTable";
 import AccreditationsSection from "@/components/AccreditationsSection";
 import Header from "@/components/Header";
 
 const tabItems = [
   { value: "profile", label: "Profile" },
   { value: "management", label: "Management Team" },
-  { value: "registrations", label: "Registrations" },
-  { value: "policy", label: "Policy" },
   { value: "media", label: "Media" },
 ];
 
@@ -47,19 +44,6 @@ export default function AboutPage() {
 
             <TabsContent value="management">
               <ManagementTeam />
-            </TabsContent>
-
-            <TabsContent value="registrations">
-              <RegistrationsTable />
-            </TabsContent>
-
-            <TabsContent value="policy">
-              <Card className="p-6">
-                <h2 className="text-2xl font-semibold mb-4">Company Policy</h2>
-                <p className="text-gray-600">
-                  [Company policies and guidelines here]
-                </p>
-              </Card>
             </TabsContent>
 
             <TabsContent value="media">
