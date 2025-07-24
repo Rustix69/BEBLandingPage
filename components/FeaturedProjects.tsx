@@ -81,7 +81,7 @@ const featuredProjects = [
 
 const FeaturedProjects = () => {
   return (
-    <section className="w-full bg-white pt-8 md:pt-12 pb-20 md:pb-28">
+    <section className="w-full bg-white pt-8 md:pt-12">
       {/* Section Title Row */}
       <div className="text-center mb-16">
         <h4 className="text-sm uppercase tracking-wider text-primary mb-3">Our Signature Works</h4>
@@ -92,11 +92,14 @@ const FeaturedProjects = () => {
       </div>
 
       {/* Apple Cards Carousel */}
+      <div className="w-full flex justify-center px-4 -mt-20 md:px-12 lg:px-16"> 
       <Carousel
         items={featuredProjects.map((project, index) => (
           <Card key={index} card={project} index={index} layout={true} />
         ))}
       />
+      </div>
+
     </section>
   );
 };

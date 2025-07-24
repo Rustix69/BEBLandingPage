@@ -1,8 +1,16 @@
 'use client';
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { ChevronRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { useInView } from "framer-motion";
+import { BentoGrid, BentoGridItem } from "./ui/bento-grid";
+import { cn } from "@/lib/utils";
+import {
+  IconClipboardCopy,
+  IconFileBroken,
+  IconSignature,
+  IconTableColumn,
+} from "@tabler/icons-react";
 
 const foundingYear = 1958;
 const currentYear = new Date().getFullYear();
@@ -76,16 +84,15 @@ export default function AboutUsSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="w-full py-6 md:py-8 flex flex-col md:flex-row items-center justify-center bg-white overflow-x-hidden p-0">
+    <section
+      ref={sectionRef}
+      className="w-full py-6 md:py-12 flex flex-col md:flex-row items-center justify-center bg-white overflow-x-hidden px-4 md:px-12 lg:px-16"
+      style={{ boxSizing: 'border-box' }}
+    >
       {/* Left: Text */}
-      <div className="flex-1 flex flex-col justify-center items-start h-full pl-6 md:pl-12 z-10">
-        <span className="text-base font-bold uppercase tracking-widest text-[#b45f1d] mb-2">About Us</span>
+      <div className="flex-1 flex flex-col justify-center items-start h-full max-w-xl md:max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto md:mx-0 md:pl-8 lg:pl-12 xl:pl-16 z-10">
+        <h4 className="text-sm uppercase tracking-wider text-primary mb-3 font-bold">About Us</h4>
         <h2 className="text-4xl md:text-5xl font-bold font-cormorant text-gray-900 leading-tight mb-3 heading-spacing">B.E. Billimoria & Co.</h2>
-        <div className="flex flex-wrap gap-3 mb-4">
-          <span className="text-[#b45f1d] font-semibold text-base">#EngineeringExcellence</span>
-          <span className="text-[#b45f1d] font-semibold text-base">#BuildingIndia</span>
-          <span className="text-[#b45f1d] font-semibold text-base">#LegacyOfTrust</span>
-        </div>
         <p className="text-gray-700 text-lg max-w-xl mb-8">
           With a legacy spanning over five decades, B.E. Billimoria & Company Ltd. stands as a symbol of engineering excellence and trust. Renowned for delivering landmark projects across India, BEBL combines innovation, quality, and integrity to create world-class infrastructure. Our commitment to precision, safety, and sustainability has shaped skylines and empowered communities, making us a preferred partner for complex and iconic developments.
         </p>
@@ -111,7 +118,7 @@ export default function AboutUsSection() {
             >
               <span className="relative z-10 flex items-center gap-2">
                 Know More
-                <ChevronRight className="w-6 h-6 ml-1 transition-colors duration-300 group-hover:text-[#b45f1d] text-[#b45f1d]" />
+                <ArrowUpRight className="w-6 h-6 ml-1 transition-colors duration-300 group-hover:text-[#b45f1d] text-[#b45f1d]" />
               </span>
               {/* Animated underline */}
               <span className="underline-anim absolute left-0 bottom-0 w-full h-[2.5px] bg-[#b45f1d] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full" />
@@ -119,12 +126,20 @@ export default function AboutUsSection() {
           </Link>
         </div>
       </div>
-      {/* Right: Image */}
-      <div className="flex-1 flex items-center justify-center h-full relative z-10">
-        <div className="relative w-full max-w-[600px] h-[60vh] max-h-[600px] flex items-center justify-center">
-          {/* Main image */}
-          <img src="/home_about/1.jpg" alt="BEBL Project 1" className="rounded-3xl object-cover w-full max-w-[600px] h-[55vh] max-h-[500px] shadow-2xl border-4 border-white" style={{zIndex:2, boxShadow: '0 8px 32px 0 rgba(60,60,60,0.18), 0 1.5px 8px 0 rgba(60,60,60,0.10)'}} />
-        </div>
+      {/* Right: Bento Grid */}
+      <div className="flex-1 flex items-center justify-center h-full max-w-3xl mx-auto md:mx-0 md:pr-8 lg:pr-12 xl:pr-16 relative z-10 md:ml-12 lg:ml-16 xl:ml-20">
+        <BentoGrid className="w-full max-w-3xl mx-auto md:auto-rows-[18rem]">
+          {bentoItems.map((item, i) => (
+            <BentoGridItem
+              key={i}
+              title={item.title}
+              description={item.description}
+              header={item.header}
+              className={item.className}
+              icon={item.icon}
+            />
+          ))}
+        </BentoGrid>
       </div>
       <style jsx>{`
         .explore-btn {
@@ -142,4 +157,40 @@ export default function AboutUsSection() {
       `}</style>
     </section>
   );
-} 
+}
+
+// Skeleton and bentoItems for the grid
+const Skeleton = () => (
+  <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-dot-black/[0.2] [mask-image:radial-gradient(ellipse_at_center,white,transparent)] border border-transparent bg-neutral-100"></div>
+);
+const bentoItems = [
+  {
+    title: "The Dawn of Innovation",
+    description: "Explore the birth of groundbreaking ideas and inventions.",
+    header: <Skeleton />,
+    className: "md:col-span-2",
+    icon: <IconClipboardCopy className="h-4 w-4 text-neutral-500" />,
+  },
+  {
+    title: "The Digital Revolution",
+    description: "Dive into the transformative power of technology.",
+    header: <Skeleton />,
+    className: "md:col-span-1",
+    icon: <IconFileBroken className="h-4 w-4 text-neutral-500" />,
+  },
+  {
+    title: "The Art of Design",
+    description: "Discover the beauty of thoughtful and functional design.",
+    header: <Skeleton />,
+    className: "md:col-span-1",
+    icon: <IconSignature className="h-4 w-4 text-neutral-500" />,
+  },
+  {
+    title: "The Power of Communication",
+    description:
+      "Understand the impact of effective communication in our lives.",
+    header: <Skeleton />,
+    className: "md:col-span-2",
+    icon: <IconTableColumn className="h-4 w-4 text-neutral-500" />,
+  },
+]; 
