@@ -8,7 +8,7 @@ import WhereWeExist from "@/components/WhereWeExist";
 export default function Home() {
   return (
     <div className="min-h-screen bg-white font-space-grotesk">
-      <Header />
+      {/* <Header /> */}
       <HeroSection />
       <AboutUsSection />
       <FeaturedProjects />

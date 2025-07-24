@@ -22,6 +22,7 @@ export default {
 				playfair: ["Playfair Display", "serif"],
 				grotesk: ["Space Grotesk", "sans-serif"],
 				cormorant: ["Cormorant Garamond", "serif"],
+				monogram: ["MonogramholderDemo", "cursive"],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
