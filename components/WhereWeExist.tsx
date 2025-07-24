@@ -1,58 +1,6 @@
 "use client";
 
-import WorldMap from "@/components/ui/world-map";
-
-const locations = [
-  // Primary Locations in India
-  {
-    start: { lat: 17.3850, lng: 78.4867, label: "Hyderabad HQ" },
-    end: { lat: 19.0760, lng: 72.8777, label: "Mumbai Office" },
-  },
-  {
-    start: { lat: 17.3850, lng: 78.4867, label: "Hyderabad HQ" },
-    end: { lat: 12.9716, lng: 77.5946, label: "Bangalore Office" },
-  },
-  {
-    start: { lat: 17.3850, lng: 78.4867, label: "Hyderabad HQ" },
-    end: { lat: 28.6139, lng: 77.2090, label: "Delhi Office" },
-  },
-  {
-    start: { lat: 17.3850, lng: 78.4867, label: "Hyderabad HQ" },
-    end: { lat: 22.5726, lng: 88.3639, label: "Kolkata Branch" },
-  },
-  {
-    start: { lat: 17.3850, lng: 78.4867, label: "Hyderabad HQ" },
-    end: { lat: 13.0827, lng: 80.2707, label: "Chennai Outpost" },
-  },
-  
-  // International Connections
-  {
-    start: { lat: 17.3850, lng: 78.4867, label: "Hyderabad HQ" },
-    end: { lat: 1.3521, lng: 103.8198, label: "Singapore Consulting" },
-  },
-  {
-    start: { lat: 17.3850, lng: 78.4867, label: "Hyderabad HQ" },
-    end: { lat: 25.2048, lng: 55.2708, label: "Dubai Project Office" },
-  },
-  {
-    start: { lat: 17.3850, lng: 78.4867, label: "Hyderabad HQ" },
-    end: { lat: 40.7128, lng: -74.0060, label: "New York Liaison" },
-  },
-  {
-    start: { lat: 17.3850, lng: 78.4867, label: "Hyderabad HQ" },
-    end: { lat: 51.5074, lng: -0.1278, label: "London Strategic Center" },
-  },
-  
-  // Additional Indian Locations
-  {
-    start: { lat: 17.3850, lng: 78.4867, label: "Hyderabad HQ" },
-    end: { lat: 23.0225, lng: 72.5714, label: "Ahmedabad Project Site" },
-  },
-  {
-    start: { lat: 17.3850, lng: 78.4867, label: "Hyderabad HQ" },
-    end: { lat: 26.9124, lng: 75.7873, label: "Jaipur Regional Office" },
-  },
-];
+import India from "@react-map/india";
 
 const WhereWeExist = () => {
   return (
@@ -66,9 +14,34 @@ const WhereWeExist = () => {
         </p>
       </div>
 
-      {/* World Map */}
-      <div className="max-w-6xl mx-auto px-4">
-        <WorldMap dots={locations} />
+      {/* India Map */}
+      <div className="ml-20 mx-auto px-1 md:px-4 flex justify-center">
+        <India
+          type="select-single"
+          size={800}
+          cityColors={{
+            Maharashtra: '#b45f1d',
+            Gujarat: '#e67e22',
+            Rajasthan: '#16a085',
+            Karnataka: '#2980b9',
+            TamilNadu: '#8e44ad',
+            Kerala: '#27ae60',
+            WestBengal: '#c0392b',
+            UttarPradesh: '#f39c12',
+            Punjab: '#2c3e50',
+            Haryana: '#d35400',
+            Delhi: '#7f8c8d',
+            MadhyaPradesh: '#34495e',
+            Odisha: '#e74c3c',
+            Assam: '#1abc9c',
+            Bihar: '#9b59b6',
+            Chhattisgarh: '#f1c40f',
+            Jharkhand: '#e84393',
+            Goa: '#00b894',
+            HimachalPradesh: '#fdcb6e',
+            Tripura: '#00cec9',
+          }}
+        />
       </div>
     </section>
   );
