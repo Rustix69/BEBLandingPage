@@ -4,8 +4,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
 import ProfileSection from "@/components/ProfileSection";
 import ManagementTeam from "@/components/ManagementTeam";
-import AccreditationsSection from "@/components/AccreditationsSection";
-import Header from "@/components/Header";
 
 const tabItems = [
   { value: "profile", label: "Profile" },
@@ -16,7 +14,6 @@ const tabItems = [
 export default function AboutPage() {
   return (
     <main className="min-h-screen bg-white">
-      <Header />
       <div className="max-w-7xl mx-auto px-4 mt-24">
         <Tabs defaultValue="profile" className="w-full">
           {/* Tab Navigation (not sticky) */}
