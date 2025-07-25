@@ -12,7 +12,7 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer className="w-full bg-[#181c2a] text-white pt-12 pb-6 px-4 md:px-12">
+    <footer className="w-full bg-[#181c2a] text-white pb-6 px-4 md:px-12">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-start justify-between gap-8 md:gap-8 lg:gap-8">
         {/* BEBL Logo and Contact Us */}
         <div className="flex-1 flex flex-col items-center md:items-start mb-8 md:mb-0 gap-4 font-grotesk">

@@ -1,14 +1,44 @@
-import Header from "@/components/Header";
+"use client";
+import { motion } from "framer-motion";
+import React from "react";
+import { ImagesSlider } from "@/components/ui/images-slider";
 import ProfileSection from "@/components/ProfileSection";
-import PageHero from "@/components/PageHero";
 
 export default function ProfilePage() {
+  const images = [
+    "/home_hero/1.jpg",
+    "/home_hero/2.jpg",
+    "/home_hero/3.jpg",
+    "/home_hero/4.jpg",
+    "/home_hero/5.jpg",
+  ];
+
   return (
-    <main className="min-h-screen bg-white">
-      <PageHero title="Company Profile" subtitle="Learn more about our legacy and values" image="/about_profile_hero/1.jpg" />
-      <div className="max-w-7xl mx-auto px-4 mt-6">
-        <ProfileSection />
-      </div>
+    <main>
+      <ImagesSlider className="h-screen" images={images}>
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: -80,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: 0.6,
+          }}
+          className="z-50 flex flex-col justify-center items-center absolute inset-0"
+        >
+          <motion.h1 className="font-bold text-5xl md:text-8xl text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 py-4">
+            Company Profile
+          </motion.h1>
+          <motion.p className="text-2xl md:text-3xl text-center text-neutral-200 max-w-xl px-4">
+            Learn more about our legacy and values
+          </motion.p>
+        </motion.div>
+      </ImagesSlider>
+      <ProfileSection />
     </main>
   );
 } 
