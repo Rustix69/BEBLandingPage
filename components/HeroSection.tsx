@@ -75,15 +75,6 @@ const HeroSection = () => {
                   <DropdownMenuItem asChild className="hover:bg-white/30 hover:text-black focus:bg-white/30 focus:text-black cursor-pointer hover:underline underline-offset-4">
                     <Link href="/about/management">Management Team</Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="hover:bg-white/30 hover:text-black focus:bg-white/30 focus:text-black cursor-pointer hover:underline underline-offset-4">
-                    <Link href="/about/media">Media</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="hover:bg-white/30 hover:text-black focus:bg-white/30 focus:text-black cursor-pointer hover:underline underline-offset-4">
-                    <Link href="/about/policy">Policy</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="hover:bg-white/30 hover:text-black focus:bg-white/30 focus:text-black cursor-pointer hover:underline underline-offset-4">
-                    <Link href="/about/registrations">Registrations</Link>
-                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
               <Link href="/projects" className="flex items-center gap-1 hover:underline underline-offset-4 hover:opacity-80 transition-opacity">
