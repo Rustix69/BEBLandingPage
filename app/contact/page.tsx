@@ -1,5 +1,7 @@
-import Header from "@/components/Header";
-import PageHero from "@/components/PageHero";
+"use client";
+import { ImagesSlider } from "@/components/ui/images-slider";
+import { PinContainer } from "@/components/ui/3d-pin";
+import { motion } from "framer-motion";
 import { Mail, Phone, Globe, MapPin } from "lucide-react";
 
 const headOffice = {
@@ -49,7 +51,7 @@ const branches = [
     title: "Hyderabad",
     address: [
       "102, Imperial Apartment",
-      "H. No.6-3-866/2, Greenlands, Begumpet Ameer Pet Rd, Hyderabad 500 016."
+      "H. No.6-3-866/2, Greenlands, Begumpet Ameer Pet Rd, Hyderabad 500 016, Telangana"
     ],
     phone: "+91 40 6613 9908",
     email: "beb@hyd.bebanco.com",
@@ -60,7 +62,7 @@ const branches = [
     title: "Pune",
     address: [
       "Millennium Star, Office No. 2, 2nd Floor",
-      "153, Bund Garden – Dhole Patil Road, Pune 411 001"
+      "153, Bund Garden – Dhole Patil Road, Pune 411 001, Maharashtra"
     ],
     phone: "+91 20 6620 4867",
     email: "beb@pune.bebanco.com",
@@ -75,117 +77,69 @@ function hasCity(office: any): office is { city: string } {
 }
 
 export default function ContactUs() {
+  const images = [
+    "/home_hero/1.jpg",
+    "/home_hero/2.jpg",
+    "/home_hero/3.jpg",
+    "/home_hero/4.jpg",
+    "/home_hero/5.jpg",
+  ];
   return (
     <>
-      <Header />
-      <PageHero title="Contact Us" subtitle="Get in touch with our team" image="/contact_hero/1.jpg" />
+      <ImagesSlider className="h-screen" images={images}>
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: -80,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: 0.6,
+          }}
+          className="z-50 flex flex-col justify-center items-center absolute inset-0"
+        >
+          <motion.h1 className="font-bold text-5xl md:text-8xl text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 py-4">
+            Contact Us
+          </motion.h1>
+          <motion.p className="text-2xl md:text-3xl text-center text-neutral-200 max-w-xl px-4">
+            Get in touch with our team
+          </motion.p>
+        </motion.div>
+      </ImagesSlider>
       <main className="min-h-screen bg-gray-50 py-12 px-4">
         <div className="max-w-6xl mx-auto space-y-8 mb-16">
-          {/* Head Office Card */}
-          <div className="bg-white rounded-2xl shadow-lg border-l-4 border-[#b45f1d] overflow-hidden h-80">
-            <div className="flex h-full">
-              <div className="flex-1 p-4 flex flex-col justify-between">
-                <div>
-                  <div className="flex items-center gap-2 mb-2">
-                    <MapPin className="w-5 h-5 text-[#b45f1d]" />
-                    <span className="text-xl font-bold font-playfair text-gray-900">{headOffice.title}</span>
-                    <span className="text-sm text-[#b45f1d] font-semibold">{headOffice.city}</span>
-                  </div>
-                  <div className="text-gray-700 text-base whitespace-pre-line leading-relaxed mb-4">
-                    {headOffice.address.map((line, i) => <div key={i} className="text-base">{line}</div>)}
-                  </div>
-                </div>
-                <div className="flex flex-wrap gap-6 mb-6">
-                  <div className="flex items-center gap-2">
-                    <Phone className="w-5 h-5 text-[#b45f1d]" />
-                    <a href={`tel:${headOffice.phone}`} className="text-base text-[#b45f1d] font-medium hover:underline">{headOffice.phone}</a>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Mail className="w-5 h-5 text-[#b45f1d]" />
-                    <a href={`mailto:${headOffice.email}`} className="text-base text-[#b45f1d] font-medium hover:underline">{headOffice.email}</a>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Globe className="w-5 h-5 text-[#b45f1d]" />
-                    <a href={`https://${headOffice.website}`} target="_blank" rel="noopener noreferrer" className="text-base text-[#b45f1d] font-medium hover:underline">{headOffice.website}</a>
-                  </div>
-                </div>
-              </div>
-              <div className="w-1/2 relative">
-                <iframe
-                  title="Head Office Map"
-                  src={headOffice.mapEmbed}
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  className="w-full h-full"
-                ></iframe>
-                <div className="absolute top-2 right-2 bg-white/90 rounded-lg shadow p-2">
-                  <a href={headOffice.mapUrl} target="_blank" rel="noopener noreferrer" className="text-[#b45f1d] font-semibold hover:underline flex items-center gap-1 text-xs">
-                    <MapPin className="w-3 h-3" />
-                    Directions
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Regional & Branch Offices */}
-          <div className="space-y-6">
-            <h2 className="text-xl font-bold font-playfair text-gray-900 text-center">Regional & Branch Offices</h2>
-            <div className="grid grid-cols-2 gap-4">
-              {[...offices, ...branches].map((office, idx) => (
-                <div key={idx} className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-lg transition-shadow h-80">
-                  <div className="flex h-full">
-                    <div className="flex-1 p-3 flex flex-col justify-between">
-                      <div>
-                        <div className="flex items-center gap-2 mb-2">
-                          <MapPin className="w-4 h-4 text-[#b45f1d]" />
-                          <span className="text-sm font-bold font-playfair text-gray-900">{office.title}</span>
-                          {hasCity(office) && (
-                            <span className="text-xs text-gray-500 font-semibold">{office.city}</span>
-                          )}
-                        </div>
-                        <div className="text-gray-700 text-base whitespace-pre-line leading-relaxed mb-4">
-                          {office.address.map((line, i) => <div key={i} className="text-sm">{line}</div>)}
-                        </div>
-                      </div>
-                      <div className="flex flex-col gap-2 mb-4">
-                        <div className="flex items-center gap-2">
-                          <Phone className="w-4 h-4 text-[#b45f1d]" />
-                          <a href={`tel:${office.phone}`} className="text-sm text-[#b45f1d] font-medium hover:underline">{office.phone}</a>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <Mail className="w-4 h-4 text-[#b45f1d]" />
-                          <a href={`mailto:${office.email}`} className="text-sm text-[#b45f1d] font-medium hover:underline">{office.email}</a>
-                        </div>
-                      </div>
+          <div className="grid grid-cols-3 gap-16">
+            {[headOffice, ...offices, ...branches].map((office, idx) => (
+              <PinContainer
+                key={idx}
+                title={office.title}
+                href={office.mapUrl}
+                imageUrl={`/contact_hero/1.jpg`}
+                description={office.address.join(", ")}
+                containerClassName="h-full"
+                className="flex flex-col h-full"
+              >
+                <div className="flex flex-col space-y-2 flex-grow justify-between">
+                  <div>
+                    <div className="flex items-center gap-2 mb-2">
+                      <Phone className="w-4 h-4 text-[#b45f1d]" />
+                      <a href={`tel:${office.phone}`} className="text-sm text-gray-800 hover:text-[#b45f1d] hover:underline">
+                        {office.phone}
+                      </a>
                     </div>
-                    <div className="w-1/2 relative">
-                      <iframe
-                        title={`${office.title} Map`}
-                        src={office.mapEmbed}
-                        width="100%"
-                        height="100%"
-                        style={{ border: 0 }}
-                        allowFullScreen
-                        loading="lazy"
-                        referrerPolicy="no-referrer-when-downgrade"
-                        className="w-full h-full"
-                      ></iframe>
-                      <div className="absolute top-1 right-1 bg-white/90 rounded shadow p-1">
-                        <a href={office.mapUrl} target="_blank" rel="noopener noreferrer" className="text-[#b45f1d] font-semibold hover:underline flex items-center gap-1 text-xs">
-                          <MapPin className="w-2 h-2" />
-                          Map
-                        </a>
-                      </div>
+                    <div className="flex items-center gap-2">
+                      <Mail className="w-4 h-4 text-[#b45f1d]" />
+                      <a href={`mailto:${office.email}`} className="text-sm text-gray-800 hover:text-[#b45f1d] hover:underline">
+                        {office.email}
+                      </a>
                     </div>
                   </div>
                 </div>
-              ))}
-            </div>
+              </PinContainer>
+            ))}
           </div>
         </div>
       </main>
