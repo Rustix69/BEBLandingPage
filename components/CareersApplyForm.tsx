@@ -1,28 +1,36 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from '@/components/ui/use-toast';
 
-const jobRoles = [
-  'Project Manager',
-  'Civil Engineer', 
-  'Architect', 
-  'Site Supervisor'
-];
+interface CareersApplyFormProps {
+  prefilledRole?: string;
+  onSuccessfulSubmit?: () => void;
+}
 
-export default function CareersApplyForm() {
+export default function CareersApplyForm({ 
+  prefilledRole = '', 
+  onSuccessfulSubmit 
+}: CareersApplyFormProps) {
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
     phone: '',
     linkedInUrl: '',
-    desiredRole: '',
+    desiredRole: prefilledRole,
     experience: '',
     coverLetter: ''
   });
+
+  useEffect(() => {
+    // Update desiredRole if prefilledRole changes
+    setFormData(prev => ({
+      ...prev,
+      desiredRole: prefilledRole
+    }));
+  }, [prefilledRole]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -32,18 +40,11 @@ export default function CareersApplyForm() {
     }));
   };
 
-  const handleRoleChange = (value: string) => {
-    setFormData(prev => ({
-      ...prev,
-      desiredRole: value
-    }));
-  };
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
     // Basic validation
-    if (!formData.fullName || !formData.email || !formData.desiredRole) {
+    if (!formData.fullName || !formData.email) {
       toast({
         title: 'Validation Error',
         description: 'Please fill in all required fields',
@@ -72,108 +73,98 @@ export default function CareersApplyForm() {
       variant: 'default'
     });
 
+    // Call onSuccessfulSubmit if provided
+    if (onSuccessfulSubmit) {
+      onSuccessfulSubmit();
+    }
+
     // Reset form after submission
     setFormData({
       fullName: '',
       email: '',
       phone: '',
       linkedInUrl: '',
-      desiredRole: '',
+      desiredRole: prefilledRole, // Keep the prefilled role if provided
       experience: '',
       coverLetter: ''
     });
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-6">
       <div className="grid md:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="fullName" className="block mb-2">Full Name *</label>
+          <label htmlFor="fullName" className="block mb-2 text-sm font-medium">Full Name *</label>
           <Input 
             type="text" 
             id="fullName"
             name="fullName"
             value={formData.fullName}
             onChange={handleChange}
-            placeholder="John Doe"
+            placeholder="Enter your full name"
             required
+            className="w-full"
           />
         </div>
         <div>
-          <label htmlFor="email" className="block mb-2">Email *</label>
+          <label htmlFor="email" className="block mb-2 text-sm font-medium">Email *</label>
           <Input 
             type="email" 
             id="email"
             name="email"
             value={formData.email}
             onChange={handleChange}
-            placeholder="john.doe@example.com"
+            placeholder="Enter your email address"
             required
+            className="w-full"
           />
         </div>
       </div>
 
       <div className="grid md:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="phone" className="block mb-2">Phone Number</label>
+          <label htmlFor="phone" className="block mb-2 text-sm font-medium">Phone Number</label>
           <Input 
             type="tel" 
             id="phone"
             name="phone"
             value={formData.phone}
             onChange={handleChange}
-            placeholder="+91 1234567890"
+            placeholder="Enter your phone number"
+            className="w-full"
           />
         </div>
         <div>
-          <label htmlFor="linkedInUrl" className="block mb-2">LinkedIn Profile URL</label>
+          <label htmlFor="linkedInUrl" className="block mb-2 text-sm font-medium">LinkedIn Profile</label>
           <Input 
             type="url" 
             id="linkedInUrl"
             name="linkedInUrl"
             value={formData.linkedInUrl}
             onChange={handleChange}
-            placeholder="https://www.linkedin.com/in/username"
-          />
-        </div>
-      </div>
-
-      <div className="grid md:grid-cols-2 gap-4">
-        <div>
-          <label htmlFor="desiredRole" className="block mb-2">Desired Role *</label>
-          <Select 
-            value={formData.desiredRole} 
-            onValueChange={handleRoleChange}
-          >
-            <SelectTrigger>
-              <SelectValue placeholder="Select a role" />
-            </SelectTrigger>
-            <SelectContent>
-              {jobRoles.map((role) => (
-                <SelectItem key={role} value={role}>
-                  {role}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-        <div>
-          <label htmlFor="experience" className="block mb-2">Years of Experience</label>
-          <Input 
-            type="number" 
-            id="experience"
-            name="experience"
-            value={formData.experience}
-            onChange={handleChange}
-            placeholder="Years of experience"
-            min="0"
-            max="50"
+            placeholder="LinkedIn profile URL"
+            className="w-full"
           />
         </div>
       </div>
 
       <div>
-        <label htmlFor="coverLetter" className="block mb-2">Cover Letter</label>
+        <label htmlFor="experience" className="block mb-2 text-sm font-medium">Years of Experience</label>
+        <Input 
+          type="number" 
+          id="experience"
+          name="experience"
+          value={formData.experience}
+          onChange={handleChange}
+          placeholder="Enter years of experience"
+          min="0"
+          max="50"
+          className="w-full"
+        />
+      </div>
+
+      <div>
+        <label htmlFor="coverLetter" className="block mb-2 text-sm font-medium">Cover Letter</label>
         <Textarea 
           id="coverLetter"
           name="coverLetter"
@@ -181,11 +172,12 @@ export default function CareersApplyForm() {
           onChange={handleChange}
           placeholder="Tell us why you're a great fit for this role..."
           rows={5}
+          className="w-full"
         />
       </div>
 
       <div className="text-center">
-        <Button type="submit" size="lg" className="w-full md:w-auto">
+        <Button type="submit" size="lg" className="w-full">
           Submit Application
         </Button>
       </div>

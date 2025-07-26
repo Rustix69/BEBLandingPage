@@ -1,9 +1,10 @@
+"use client";
 import React from 'react';
-import PageHero from '@/components/PageHero';
-import CareersApplyForm from '@/components/CareersApplyForm';
-import Header from '@/components/Header';
+import { motion } from "framer-motion";
+import { ImagesSlider } from "@/components/ui/images-slider";
+import JobCard, { JobRole } from '@/components/JobCard';
 
-const jobRoles = [
+const jobRoles: JobRole[] = [
   {
     title: 'Project Manager',
     department: 'Construction Management',
@@ -51,42 +52,50 @@ const jobRoles = [
 ];
 
 export default function CareersPage() {
-  return (
-    <div className="container mx-auto px-4 py-8">
-      <PageHero 
-        title="Careers at BEBL Constructions" 
-        subtitle="Join Our Team of Innovative Builders"
-        image="/careers_hero/1.jpg"
-      />
-      <Header />
-      <section className="py-12">
-        <h2 className="text-3xl font-bold text-center mb-8">Current Openings</h2>
-        <div className="grid md:grid-cols-2 gap-6">
-          {jobRoles.map((role, index) => (
-            <div 
-              key={index} 
-              className="border rounded-lg p-6 hover:shadow-lg transition-shadow"
-            >
-              <h3 className="text-xl font-semibold mb-2">{role.title}</h3>
-              <p className="text-gray-600 mb-2">{role.department} | {role.location}</p>
-              <p className="mb-4">{role.description}</p>
-              <h4 className="font-medium mb-2">Requirements:</h4>
-              <ul className="list-disc list-inside text-gray-700">
-                {role.requirements.map((req, reqIndex) => (
-                  <li key={reqIndex}>{req}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      </section>
+  const images = [
+    "/home_hero/1.jpg",
+    "/home_hero/2.jpg",
+    "/home_hero/3.jpg",
+    "/home_hero/4.jpg",
+    "/home_hero/5.jpg",
+  ];
 
-      <section className="py-12 bg-gray-50">
-        <div className="container mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-8">Apply Now</h2>
-          <CareersApplyForm />
-        </div>
-      </section>
-    </div>
+  return (
+    <main>
+      <ImagesSlider className="h-screen" images={images}>
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: -80,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: 0.6,
+          }}
+          className="z-50 flex flex-col justify-center items-center absolute inset-0"
+        >
+          <motion.h1 className="font-bold text-5xl md:text-8xl text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 py-4">
+            Careers at BEBL Constructions
+          </motion.h1>
+          <motion.p className="text-2xl md:text-3xl text-center text-neutral-200 max-w-xl px-4">
+            Build Your Future with Us
+          </motion.p>
+        </motion.div>
+      </ImagesSlider>
+
+      <div className="container mx-auto px-4 py-8">
+        <section className="py-12">
+          <h2 className="text-3xl font-bold text-center mb-8">Current Openings</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            {jobRoles.map((role, index) => (
+              <JobCard key={index} role={role} />
+            ))}
+          </div>
+        </section>
+      </div>
+    </main>
   );
 } 
