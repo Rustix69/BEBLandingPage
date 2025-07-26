@@ -439,30 +439,3 @@ export default function ProfileSection() {
     </section>
   );
 }
-
-// RotatingImage component
-function RotatingImage({ images }: { images: { src: string; alt: string }[] }) {
-  const [index, setIndex] = useState(0);
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIndex((i) => (i + 1) % images.length);
-    }, 4500);
-    return () => clearInterval(interval);
-  }, [images.length]);
-  return (
-    <div className="relative w-[420px] h-[340px] md:w-[520px] md:h-[420px] rounded-3xl overflow-hidden shadow-2xl">
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={images[index].src}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 2.5, ease: 'easeInOut' }}
-          className="absolute inset-0 w-full h-full"
-        >
-          <Image src={images[index].src} alt={images[index].alt} fill className="object-cover rounded-3xl" />
-        </motion.div>
-      </AnimatePresence>
-    </div>
-  );
-} 
