@@ -7,6 +7,7 @@ import { ThemeProvider } from "next-themes"
 import { ReactQueryProvider } from './providers'
 import { Playfair_Display } from 'next/font/google'
 import Footer from "@/components/Footer";
+import { ConditionalDock } from '@/components/ConditionalDock'
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -43,7 +44,7 @@ export default function RootLayout({
               <Toaster />
               <Sonner />
               {children}
-              <Footer />
+              <ConditionalDock />
             </TooltipProvider>
           </ReactQueryProvider>
         </ThemeProvider>
