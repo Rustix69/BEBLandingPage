@@ -4,6 +4,9 @@ import FeaturedProjects from "@/components/FeaturedProjects";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import AboutUsSection from "@/components/AboutUsSection";
 import WhereWeExist from "@/components/WhereWeExist";
+import { ConditionalDock } from "@/components/ConditionalDock";
+import { DockDemo } from "@/components/magicui/dock";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -14,6 +17,7 @@ export default function Home() {
       <FeaturedProjects />
       <WhereWeExist />
       <TestimonialsSection />
+      <Footer/>    
     </div>
   );
 } 
